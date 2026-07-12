@@ -1,0 +1,22 @@
+# 安装副本 —— 从 canonical 源 skills/ 复制而来的本地生成物 (各工具的项目级 skills 目录)。
+# canonical 源在 skills/, 那才是进 git 的; 这些 .<tool>/skills/ 由 install-skill.sh 生成。
+.claude/skills/
+.agents/skills/
+.cursor/skills/
+
+# Claude Code 个人本地设置 (权限/状态, 因人而异)
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*~
+
+# 日志
+*.log
