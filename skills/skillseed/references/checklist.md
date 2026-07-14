@@ -1,47 +1,52 @@
-# skill 发布前自检清单 (checklist)
+# Checklist trước khi phát hành skill (checklist)
 
-本文件在 skillseed 步骤 6 加载。逐项核对, 不合格的当场修。自包含, 不依赖其他 reference。
+Tệp này tải ở bước 6 skillseed. Rà từng mục, sửa ngay nếu không đạt. Tự chứa, không phụ thuộc reference khác.
 
 ## name
-- [ ] ≤64 字符
-- [ ] 仅小写字母、数字、连字符 (`^[a-z0-9-]+$`)
-- [ ] 不含 `anthropic` 或 `claude`
-- [ ] 优先 gerund 形式 (如 processing-pdfs)
+- [ ] ≤64 ký tự
+- [ ] Chỉ chữ thường, số, dấu gạch ngang (`^[a-z0-9-]+$`)
+- [ ] Không chứa `anthropic` hoặc `claude`
+- [ ] Ưu tiên dạng gerund (vd. `soan-cong-van`, `processing-pdfs`)
 
 ## description
-- [ ] ≤1024 字符
-- [ ] 第三人称 (无 "I/we"; "you" 仅在 "Use when you..." 短语中可接受)
-- [ ] 同时说明 WHAT it does + WHEN to use it
-- [ ] 关键用例 / 关键词在前 (从末尾截断)
-- [ ] 中文 (本工厂策略)
-- [ ] description + when_to_use 合计 ≤1536 字符
+- [ ] ≤1024 ký tự
+- [ ] Ngôi thứ ba (không "tôi/chúng tôi"; "bạn" chỉ chấp nhận trong cụm "Dùng khi bạn…")
+- [ ] Nêu rõ WHAT (làm gì) + WHEN (khi nào)
+- [ ] Use case / từ khóa quan trọng đặt trước (tránh bị cắt cuối)
+- [ ] Tiếng Việt (chiến lược repo này)
+- [ ] description + when_to_use ≤1536 ký tự
 
 ## SKILL.md
-- [ ] <500 行
-- [ ] frontmatter 是合法 YAML
-- [ ] 只使用已知字段 (无拼写错误)
-- [ ] 正文语言符合维护策略 (本工厂用中文)
-- [ ] 包含 References 索引, 注明每个 reference 的内容与加载时机
+- [ ] <500 dòng
+- [ ] frontmatter là YAML hợp lệ
+- [ ] Chỉ dùng trường đã biết (không sai chính tả)
+- [ ] Ngôn ngữ thân bài theo chiến lược repo (tiếng Việt)
+- [ ] Có chỉ mục References, ghi nội dung và thời điểm tải từng reference
 
 ## references
-- [ ] 只有一层深度: 没有任何 reference 指示加载另一个 reference
-- [ ] 超过 100 行的 reference 顶部有目录 (TOC)
-- [ ] 所有路径用正斜杠 (含 Windows)
-- [ ] SKILL.md 中提到的每个 reference 文件实际存在
-- [ ] 无 A→B→C 链式引用
+- [ ] Chỉ một tầng: không reference nào chỉ tải reference khác
+- [ ] Reference >100 dòng có mục lục (TOC) ở đầu
+- [ ] Mọi đường dẫn dùng dấu `/` (kể cả Windows)
+- [ ] Mọi tệp reference được nhắc trong SKILL.md đều tồn tại
+- [ ] Không có chuỗi tham chiếu A→B→C
 
-## 渐进式披露
-- [ ] SKILL.md 不臃肿 (重内容移入 references)
-- [ ] 每个 reference 有单一明确职责
+## Tiết lộ dần (progressive disclosure)
+- [ ] SKILL.md không phình to (nội dung nặng chuyển sang references)
+- [ ] Mỗi reference một trách nhiệm rõ ràng
 
-## discovery / 安装
-- [ ] skill 位于受识别路径 (`~/.<tool>/skills/<name>/`、`<project>/.<tool>/skills/<name>/`、或 plugin)
-- [ ] 若为首次创建顶层 skills 目录, 已提醒用户重启对应工具
+## Discovery / cài đặt
+- [ ] Skill nằm đường dẫn được nhận diện (`~/.<tool>/skills/<name>/`, `<project>/.<tool>/skills/<name>/`, hoặc plugin)
+- [ ] Nếu lần đầu tạo thư mục skills gốc, đã nhắc người dùng khởi động lại công cụ
 
-## 客观校验 (机械项, 不靠估算)
-- [ ] `bash scripts/validate-skill.sh <name>` 通过 (exit 0)
-- [ ] name 正则/长度、description 字符数、SKILL.md 行数、frontmatter、references 一层深度、>100 行 TOC、正斜杠、引用文件存在 —— 全部由脚本客观判定
+## Kiểm tra khách quan (mục cơ học, không ước lượng)
+- [ ] `bash scripts/validate-skill.sh <tên>` PASS (exit 0)
+- [ ] name, độ dài description, số dòng SKILL.md, frontmatter, một tầng references, TOC >100 dòng, dấu `/`, tệp tồn tại — do script quyết định
 
-## 打磨 (可选但推荐)
-- [ ] 已为 description 写 3 个 should-trigger + 3 个 should-not-trigger 示例并推理验证
-- [ ] description 能区分相近但不应触发的请求
+## Mài description (tuỳ chọn nhưng nên làm)
+- [ ] Đã viết 3 should-trigger + 3 should-not-trigger và suy luận kiểm tra
+- [ ] Description phân biệt được yêu cầu gần giống nhưng không nên kích hoạt
+
+## Skill hành chính (bổ sung khi áp dụng)
+- [ ] Từ khóa kích hoạt gồm loại văn bản/quy trình cụ thể (công văn, tờ trình, báo cáo, kế hoạch…)
+- [ ] Có checklist thẩm định hoặc ràng buộc "không bịa căn cứ pháp lý"
+- [ ] Văn phong và thuật ngữ nhất quán trong toàn skill

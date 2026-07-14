@@ -1,26 +1,26 @@
-# 经验累积库 (lessons)
+# Kho kinh nghiệm (lessons)
 
-本文件是 skillseed 的经验库。每次创建完 skill 后, 若学到通用经验, 追加一条到本文件**末尾**。调用 skillseed 时先读本文件参考, 避免重蹈覆辙。
+Tệp kinh nghiệm của skillseed. Sau mỗi lần tạo skill, nếu học được điều chung, **thêm** một mục vào **cuối** tệp này. Khi gọi skillseed, **đọc tệp này trước** để tránh lặp sai lầm.
 
-## 条目结构
-每条经验按以下格式追加:
+## Cấu trúc mục
+Mỗi kinh nghiệm thêm theo định dạng:
 ```
-## <简短标题>
-- 场景: <什么情况下发生的>
-- 经验: <学到什么, 对未来创建 skill 有何帮助>
-- 建议改规范?: <是/否, 若是指出改哪里> (可选)
+## <Tiêu đề ngắn>
+- Tình huống: <xảy ra trong hoàn cảnh nào>
+- Kinh nghiệm: <học được gì, giúp gì cho lần tạo skill sau>
+- Đề xuất sửa quy chuẩn?: <có/không, nếu có thì sửa đâu> (tuỳ chọn)
 ```
 
-## 原则
-- 只追加, 不删改历史条目 (除非明确过时)
-- 经验要具体、可操作, 避免空泛
-- 与已有条目重复则不追加
-- 只写本文件, 不改其他 reference (checklist / templates / description-guide / skill-anatomy)
-- 若建议改规范, 只记"建议", 不自动执行 (由用户决定是否采纳)
+## Nguyên tắc
+- Chỉ thêm, không xóa/sửa mục cũ (trừ khi đã lỗi thời rõ ràng)
+- Kinh nghiệm cụ thể, có thể làm được; tránh chung chung
+- Trùng mục đã có thì không thêm
+- Chỉ sửa tệp này, không sửa reference khác (checklist / templates / description-guide / skill-anatomy)
+- Đề xuất sửa quy chuẩn chỉ ghi "đề xuất", không tự thực hiện (người dùng quyết định)
 
-## 维护
-- 超过 30 条或 200 行时, 提示用户归纳精简 (合并相似、删除过时)。
+## Bảo trì
+- Quá 30 mục hoặc 200 dòng: nhắc người dùng tổng hợp rút gọn (gộp tương tự, bỏ lỗi thời).
 
 ---
 
-(经验条目从下方开始追加)
+(Các mục kinh nghiệm bắt đầu thêm từ dưới đây)

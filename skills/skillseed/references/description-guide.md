@@ -1,73 +1,85 @@
-# 触发描述写作指南 (description-guide)
+# Hướng dẫn viết description (description-guide)
 
-本文件在 skillseed 步骤 3 加载。description 是 skill 能否被正确触发的决定性因素 —— 写好它, 比写好正文更重要。
+Tệp này tải ở bước 3 của skillseed. Description quyết định skill có được kích hoạt đúng lúc — viết tốt description quan trọng hơn viết tốt phần thân.
 
-## 1. 为什么 description 最重要
-- 启动时只有 `name` + `description` 进入上下文, Claude 据此判断何时调用 skill。
-- description 在 listing 中从**末尾截断** (字符预算溢出时, 最少被调用的 skill 先被截)。
-- 没有 description 或 description 模糊, skill 几乎不会被自动触发 (只能手动 `/name`)。
+## 1. Vì sao description quan trọng nhất
+- Khi khởi động chỉ có `name` + `description` vào ngữ cảnh; agent dựa vào đó quyết định khi nào gọi skill.
+- Description trong danh sách có thể bị **cắt từ cuối** (hết ngân sách ký tự).
+- Không có description hoặc description mơ hồ → skill hầu như không tự kích hoạt (chỉ gọi tay `/name`).
 
-## 2. 公式
-**第三人称 + WHAT it does + WHEN to use it + 关键词前置**
+## 2. Công thức
+**Ngôi thứ ba + WHAT (làm gì) + WHEN (khi nào) + từ khóa đặt trước**
 
-- 第三人称: "Processes Excel files..." 而非 "I can help you..." / "You can use this..."
-- WHAT: 这个 skill 具体做什么 (动词开头, 具体到输入输出)
-- WHEN: 什么场景下用 (用户会怎么说)
-- 关键词前置: 最重要的用例放最前面 (防截断)
+- Ngôi thứ ba: "Soạn thảo công văn…" thay vì "Tôi có thể giúp bạn…" / "Bạn có thể dùng…"
+- WHAT: skill làm cụ thể gì (động từ đầu, rõ đầu vào/đầu ra)
+- WHEN: tình huống nào (người dùng hay nói thế nào)
+- Từ khóa đặt trước: use case quan trọng nhất lên đầu (tránh bị cắt mất)
 
-## 3. 关键词策略
-- 列出用户**真正会说的词**: "chart", "graph", "plot" 而非 "visualization solution"
-- 关键词放 description 前部和末尾的 `Triggers on:` 列表
-- 避免泛词: "helper", "utility", "various tasks" 无信息量
-- 本工厂策略: description 用中文, 与用户语言一致; 关键词放前部和 `Triggers on:` 列表
+## 3. Chiến lược từ khóa
+- Liệt kê từ người dùng **thực sự hay nói**: "công văn", "tờ trình", "báo cáo" thay vì "hỗ trợ văn bản hành chính tổng hợp"
+- Đặt từ khóa ở đầu description và cuối (danh sách `Kích hoạt khi:`)
+- Tránh từ chung chung: "trợ giúp", "tiện ích", "nhiều tác vụ" — không có thông tin
+- **Chiến lược repo này:** description bằng tiếng Việt, khớp ngôn ngữ người dùng; từ khóa ở đầu và danh sách `Kích hoạt khi:`
 
-## 4. 触发校验法 (should / should-not)
-写完 description 草稿后, 强制做这一步 (本 skill 的核心增值):
+### Từ khóa gợi ý cho skill hành chính
+- Tham mưu: "tham mưu", "đề xuất phương án", "phân tích", "so sánh phương án"
+- Công văn: "công văn", "công văn đi", "phúc đáp", "giấy mời", "thông báo"
+- Báo cáo: "báo cáo", "tổng kết", "báo cáo định kỳ", "báo cáo chuyên đề"
+- Kế hoạch: "kế hoạch", "kế hoạch năm", "kế hoạch công tác", "phân công nhiệm vụ"
 
-1. 写 **3 个 should-trigger 输入**: 应当触发本 skill 的真实用户请求
-2. 写 **3 个 should-not-trigger 输入**: 相近但**不应**触发的请求 (最容易误触发的边界)
-3. 逐个推理: "给定此 description, Claude 会不会触发? 该触发吗?"
-4. 若 should-trigger 不触发 → description 关键词不够; 若 should-not 触发了 → description 范围太宽。据此修正。
+## 4. Kiểm tra kích hoạt (should / should-not)
+Sau khi có bản nháp description, **bắt buộc** làm bước này:
 
-这是轻量级 pre-eval。真正的批量 eval 用官方 skill-creator 插件。
+1. Viết **3 câu should-trigger**: yêu cầu thật nên kích hoạt skill
+2. Viết **3 câu should-not-trigger**: gần giống nhưng **không** nên kích hoạt (ranh giới dễ nhầm)
+3. Suy luận từng câu: "Với description này, agent có kích hoạt không? Có đúng không?"
+4. should-trigger không kích hoạt → thiếu từ khóa; should-not bị kích hoạt → description quá rộng → chỉnh lại
 
-## 5. 长度管理
-- description ≤1024 字符
-- description + when_to_use 合计 ≤1536 字符
-- 核心功能放最前, 确保 truncated 后仍可识别
+Đây là pre-eval nhẹ. Eval hàng loạt dùng plugin skill-creator chính thức.
 
-## 6. 好坏示例
+### Ví dụ ranh giới — skill soạn công văn
+| Loại | Câu mẫu |
+|------|---------|
+| Should-trigger | "Soạn công văn đề nghị cấp trên hỗ trợ kinh phí" |
+| Should-trigger | "Chỉnh lại dự thảo công văn phúc đáp theo NĐ 30" |
+| Should-not-trigger | "Dịch công văn sang tiếng Anh" (skill dịch thuật, không phải soạn hành chính) |
+| Should-not-trigger | "Viết email nội bộ cho đồng nghiệp" (không phải văn bản hành chính) |
 
-> 以下示例取自真实 skill (英文), 仅供结构参考; 本工厂策略用中文写 description。
+## 5. Quản lý độ dài
+- description ≤1024 ký tự
+- description + when_to_use ≤1536 ký tự
+- Chức năng cốt lõi đặt trước, đảm bảo sau khi cắt vẫn nhận ra được
 
-### 示例 1 — workflow 型
+## 6. Ví dụ tốt / xấu
 
-**好:**
-> Creates charts and data visualizations — picks the right chart type, builds a consistent palette, and writes plotting code in any library. Use whenever the user asks to create a chart, graph, plot, dashboard, or visualize data, in any medium. Triggers on: "chart", "graph", "plot", "data viz", "dashboard", "visualize".
+> Ví dụ dưới đây dùng bối cảnh cơ quan nhà nước; cấu trúc áp dụng cho mọi loại skill.
 
-**坏:**
-> This skill helps you make nice-looking charts. It is very powerful and supports many libraries. You will love it.
+### Ví dụ 1 — workflow (soạn công văn)
 
-差在哪: 第二人称; 无 "when"; 无触发关键词; 空洞自夸。
+**Tốt:**
+> Soạn thảo và chỉnh sửa công văn hành chính (đi, phúc đáp, giấy mời) theo Nghị định 30/2020/NĐ-CP và văn phong hành chính. Dùng khi người dùng cần soạn, sửa hoặc rà soát công văn, giấy mời, thông báo. Kích hoạt khi: "công văn", "soạn công văn", "phúc đáp", "giấy mời", "Nghị định 30".
 
-### 示例 2 — reference 型
+**Kém:**
+> Skill này giúp bạn viết công văn rất hay. Rất mạnh và hỗ trợ nhiều loại văn bản. Bạn sẽ thích.
 
-**好:**
-> Reference for the Claude API and Anthropic SDK — model IDs, pricing, parameters, streaming, tool use, MCP, caching, and token counting. Use when the user asks about Claude/Anthropic API usage, model selection, pricing, or SDK behavior. Read BEFORE answering any question that names Claude or Anthropic.
+Sai ở: ngôi thứ hai; không có "when"; không có từ khóa; khoe rỗng.
 
-**坏:**
-> Knows about APIs. Good for developers.
+### Ví dụ 2 — reference (quy chuẩn văn bản)
 
-差在哪: 太短; 无触发词; 无明确 "when"; 无关键词。
+**Tốt:**
+> Tra cứu quy chuẩn thể thức văn bản hành chính — cấu trúc công văn, tờ trình, báo cáo, kế hoạch; trích yếu; nơi nhận; ký duyệt. Dùng khi người dùng hỏi về format, thể thức, quy định soạn văn bản hành chính. Đọc TRƯỚC khi trả lời câu hỏi về NĐ 30 hoặc mẫu văn bản nhà nước.
 
-### 示例 3 — tool 型
+**Kém:**
+> Biết về văn bản. Tốt cho cán bộ.
 
-**好:**
-> Installs Claude Code skills from the SkillSeed factory to ~/.claude/skills/ or a project's .claude/skills/. Use when the user wants to install, distribute, or deploy a skill they authored. Triggers on: "install skill", "deploy skill", "add skill to project".
+Sai ở: quá ngắn; không từ khóa; không "when" rõ.
 
-**坏:**
-> A script that copies files. Run it when you want.
+### Ví dụ 3 — tool (validate văn bản)
 
-差在哪: 模糊; 无关键词; 无具体 "when"。
+**Tốt:**
+> Chạy script kiểm tra thể thức văn bản (frontmatter, độ dài, mục bắt buộc) trước khi trình ký. Dùng khi người dùng muốn validate, kiểm tra cấu trúc dự thảo văn bản. Kích hoạt khi: "kiểm tra văn bản", "validate", "rà soát thể thức".
 
-这些模式取自真实 skill (dataviz, claude-api 等) 的 description 习语。
+**Kém:**
+> Một script copy tệp. Chạy khi bạn muốn.
+
+Sai ở: mơ hồ; không từ khóa; không "when" cụ thể.

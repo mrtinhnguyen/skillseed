@@ -1,86 +1,135 @@
-# Skill 骨架模板 (templates)
+# Mẫu khung skill (templates)
 
-本文件在 skillseed 步骤 2 加载。按 skill 类型选骨架, 复制后填充。自包含, 不依赖其他 reference。
+Tệp này tải ở bước 2 skillseed. Chọn loại skill, copy khung rồi điền. Tự chứa, không phụ thuộc reference khác.
 
-## 如何选型
-- **workflow 型**: 分步流程驱动 (如 code-review, deploy)。适合"按步骤做某事"。
-- **reference 型**: 知识库驱动 (如 claude-api)。适合"查阅某领域知识后回答"。
-- **tool 型**: 包装脚本/工具 (如 dataviz, install-skill)。适合"调用某个工具完成动作"。
-- **hybrid 型**: 以上组合。先以主类型为骨架, 再嵌入其他类型的章节。
+## Mục lục
+1. [Cách chọn loại](#cách-chọn-loại)
+2. [Template A — workflow](#template-a--workflow)
+3. [Template B — reference](#template-b--reference)
+4. [Template C — tool](#template-c--tool)
+5. [Template D — skill hành chính](#template-d--skill-hành-chính-nhà-nước-khuyến-nghị)
 
-## Template A — workflow 型
+## Cách chọn loại
+- **workflow**: quy trình từng bước (vd. soạn công văn, lập kế hoạch). Phù hợp "làm việc theo bước".
+- **reference**: tra cứu kiến thức (vd. quy chuẩn NĐ 30, văn phong hành chính). Phù hợp "đọc rồi trả lời".
+- **tool**: bọc script/công cụ (vd. validate, chuyển đổi định dạng). Phù hợp "gọi công cụ thực hiện".
+- **hybrid**: kết hợp. Lấy loại chính làm khung, nhúng phần loại phụ.
+- **hành chính (workflow mở rộng)**: skill phục vụ cơ quan nhà nước — ưu tiên Template D.
 
-```
----
-name: <gerund-or-noun>
-description: <中文: WHAT + WHEN + Triggers on: ...>
-argument-hint: [optional]
----
-# <Title>
-
-一句话定位。
-
-## 何时使用
-<2-3 行: 触发场景>
-
-## 工作流
-1. <步骤>
-2. <步骤>
-
-## References 索引
-| 文件 | 内容 | 何时加载 |
-|------|------|----------|
-| `references/<file>.md` | <内容> | <步骤 X> |
-
-## 重要约束
-- <约束>
-```
-
-## Template B — reference 型
+## Template A — workflow
 
 ```
 ---
-name: <noun>
-description: <中文: "Reference for X. Use when...">
+name: <danh-từ-hoặc-động-từ>
+description: <tiếng Việt: WHAT + WHEN + Kích hoạt khi: ...>
+argument-hint: [tuỳ-chọn]
 ---
-# <Title>
+# <Tiêu đề>
 
-一句话定位。
+Một câu định vị.
 
-## 何时使用
-<何时查阅本参考>
+## Khi nào dùng
+<2–3 dòng: tình huống kích hoạt>
 
-## Reference 索引
-| 文件 | 内容 | 何时加载 |
-|------|------|----------|
-| `references/<topic>.md` | <范围> | <何时> |
+## Quy trình
+1. <bước>
+2. <bước>
 
-## 快速指南
-<最常见问题的薄层答案; 主体在 references>
+## Chỉ mục References
+| Tệp | Nội dung | Khi nào tải |
+|-----|----------|-------------|
+| `references/<tệp>.md` | <nội dung> | <bước X> |
+
+## Ràng buộc quan trọng
+- <ràng buộc>
 ```
 
-## Template C — tool 型
+## Template B — reference
 
 ```
 ---
-name: <verb-noun>
-description: <中文: 工具做什么 + WHEN + Triggers on: ...>
+name: <danh-từ>
+description: <tiếng Việt: "Tra cứu X. Dùng khi...">
+---
+# <Tiêu đề>
+
+Một câu định vị.
+
+## Khi nào dùng
+<khi nào tra cứu tài liệu này>
+
+## Chỉ mục Reference
+| Tệp | Nội dung | Khi nào tải |
+|-----|----------|-------------|
+| `references/<chủ-đề>.md` | <phạm vi> | <khi nào> |
+
+## Hướng dẫn nhanh
+<câu trả lời mỏng cho câu hỏi hay gặp; chi tiết trong references>
+```
+
+## Template C — tool
+
+```
+---
+name: <động-từ-danh-từ>
+description: <tiếng Việt: công cụ làm gì + WHEN + Kích hoạt khi: ...>
 allowed-tools: Bash, Read
 ---
-# <Title>
+# <Tiêu đề>
 
-一句话定位。
+Một câu định vị.
 
-## 何时使用
-<何时运行本工具>
+## Khi nào dùng
+<khi nào chạy công cụ>
 
-## 工作原理
-<bundled 脚本/工具做什么, 不展开实现>
+## Cách hoạt động
+<script/công cụ làm gì, không đi sâu implementation>
 
-## 用法
-<调用方式、参数、输出格式>
+## Cách dùng
+<cách gọi, tham số, định dạng đầu ra>
+```
+
+## Template D — skill hành chính nhà nước (khuyến nghị)
+
+Dùng cho skill tham mưu, công văn, kế hoạch, báo cáo.
+
+```
+---
+name: <soan-cong-van | lap-ke-hoach | ...>
+description: <tiếng Việt: WHAT + WHEN + từ khóa hành chính + Kích hoạt khi: ...>
+argument-hint: [loại-văn-bản] [tóm-tắt]
+---
+# <Tiêu đề>
+
+Hỗ trợ cán bộ [cơ quan/đơn vị] trong [tham mưu / soạn văn bản / lập kế hoạch / báo cáo].
+
+## Khi nào dùng
+- <tình huống 1>
+- <tình huống 2>
+
+## Phong cách tương tác
+Ít hỏi → soạn bản nháp đầy đủ → chỉnh theo phản hồi. Luôn dùng tiếng Việt và văn phong hành chính.
+
+## Quy trình
+1. Xác định loại văn bản và mục đích
+2. Thu thập nội dung cốt lõi (sự việc, căn cứ, đề xuất…)
+3. Chọn mẫu và soạn nháp — tải tệp mẫu (xem Chỉ mục References)
+4. Thẩm định — tải tệp văn phong hành chính (xem Chỉ mục References)
+5. Xuất bản (Markdown / hướng dẫn copy Word)
+
+## Chỉ mục References
+| Tệp | Nội dung | Khi nào tải |
+|-----|----------|-------------|
+| `references/<mau-van-ban>.md` | Khung mẫu văn bản | Bước 3 |
+| `references/<van-phong-hanh-chinh>.md` | Quy tắc văn phong, lỗi thường gặp | Bước 4 |
+| `references/<can-cu-phap-ly>.md` | (tuỳ chọn) Căn cứ, quy định liên quan | Khi cần trích dẫn |
+
+## Ràng buộc quan trọng
+- Không bịa số hiệu văn bản, nghị định — ghi `[cần xác minh]` nếu chưa chắc
+- Không thay thế ý kiến pháp lý chính thức
+- Giữ trung lập hành chính; nhắc bảo mật nếu nội dung nhạy cảm
 ```
 
 ---
 
-提醒: description 字段用中文、第三人称、what+when, 在工作流步骤 3 中打磨 (此处不展开)。
+Nhắc: trường description dùng tiếng Việt, ngôi thứ ba, what+when — mài ở bước 3 (không lặp lại ở đây).

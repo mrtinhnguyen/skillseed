@@ -1,12 +1,12 @@
-# 经验原始档案 (lessons-archive)
+# Lưu trữ kinh nghiệm gốc (lessons-archive)
 
-本文件是 skillseed 经验库的**原始全量档案**。归纳时, `lessons.md` 的条目会追加到这里, 然后 `lessons.md` 重写为精简版。本文件**只追加, 永不删改** —— 保留全部历史。
+Tệp **lưu trữ đầy đủ** của kho kinh nghiệm skillseed. Khi tổng hợp, mục từ `lessons.md` được **ghi thêm** vào đây, rồi `lessons.md` viết lại bản rút gọn. Tệp này **chỉ thêm, không xóa/sửa** — giữ toàn bộ lịch sử.
 
-skillseed 调用时**不需要读本文件** (只读 `lessons.md`)。本文件仅供追溯。
+Khi gọi skillseed **không cần đọc** tệp này (chỉ đọc `lessons.md`). Dùng để tra cứu lịch sử.
 
-## 归纳记录
-(每次归纳在此标注一行: 归纳了 N 条 → 精简为 M 条)
+## Nhật ký tổng hợp
+(Mỗi lần tổng hợp ghi một dòng: đã tổng hợp N mục → rút còn M mục)
 
 ---
 
-(原始条目从下方开始追加)
+(Các mục gốc bắt đầu ghi từ dưới đây)

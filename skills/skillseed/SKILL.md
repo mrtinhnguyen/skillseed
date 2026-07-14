@@ -1,114 +1,121 @@
 ---
 name: skillseed
-description: 端到端脚手架并编写 Agent Skills（基于开放标准, 兼容 Claude Code、Codex、Cursor 等）—— 生成符合规范的 SKILL.md（含 frontmatter）, 组织渐进式披露的 references, 用 should/should-not 触发示例打磨触发描述, 跑合规自检 (含客观校验脚本), 并通过安装脚本部署到各工具。当用户想创建新 skill、编写或脚手架 SKILL.md、设计或打磨 skill 的描述与触发关键词、选择 skill 模板、按格式规则校验 skill、或把 skill 安装到 Claude Code / Codex / Cursor 时使用。触发词："创建 skill"、"新 skill"、"Claude skill"、"Codex skill"、"Cursor skill"、"脚手架 SKILL.md"、"安装 skill"。
-argument-hint: [skill-name] [one-line description]
+description: Khởi tạo và viết Agent Skills end-to-end (theo chuẩn mở, tương thích Claude Code, Codex, Cursor…) — tạo SKILL.md đúng quy chuẩn (kèm frontmatter), tổ chức references theo tiết lộ dần, mài description bằng ví dụ should/should-not, chạy tự kiểm tra (kèm script), và cài đặt qua script. Dùng khi cần tạo skill mới cho tham mưu, soạn công văn, kế hoạch, báo cáo hoặc quy trình hành chính nhà nước; viết/scaffold SKILL.md; thiết kế mô tả và từ khóa kích hoạt; chọn mẫu skill; kiểm tra định dạng; hoặc cài skill lên Claude Code / Codex / Cursor. Kích hoạt: "tạo skill", "skill mới", "scaffold SKILL.md", "cài skill", "viết skill công văn", "skill báo cáo".
+argument-hint: [tên-skill] [mô-tả-một-dòng]
 ---
 
 # skillseed
 
-帮你从零创建符合规范的 Agent Skills (Claude Code / Codex / Cursor 通用): 脚手架 + 写作教练 + 合规自检 (含客观校验) + 跨工具安装。
+Giúp tạo Agent Skills đúng chuẩn (Claude Code / Codex / Cursor): khởi tạo + huấn luyện viết + tự kiểm tra (kèm validate) + cài đặt đa công cụ.
 
-## 何时使用本 skill
+**Định hướng ưu tiên:** skill phục vụ cơ quan nhà nước — tham mưu, soạn thảo công văn, kế hoạch, báo cáo và các quy trình hành chính tương tự.
 
-当用户想: 创建新 skill、脚手架 SKILL.md、打磨触发描述、选模板、做格式自检、或把 skill 安装到 Claude Code / Codex / Cursor 等工具的 skills 目录时。
+## Khi nào dùng skill này
 
-## 交互风格
+Khi người dùng muốn: tạo skill mới, scaffold SKILL.md, mài mô tả kích hoạt, chọn mẫu, tự kiểm tra định dạng, hoặc cài skill vào thư mục skills của Claude Code / Codex / Cursor.
 
-**最少对话 + 生成初稿 + 迭代**: 先问 2-3 个关键问题定方向, 然后直接生成完整骨架和内容初稿, 再按反馈迭代。
+## Phong cách tương tác
 
-如果调用时带了参数 (`/skillseed <name> "<一句话描述>"`), 跳过提问, 直接进入步骤 3。
+**Ít hỏi + sinh bản nháp + lặp:** hỏi 2–3 câu then chốt, rồi sinh khung và nội dung đầy đủ, chỉnh theo phản hồi.
 
-## 经验库 (进化机制)
+Nếu gọi kèm tham số (`/skillseed <tên> "<mô tả một dòng>"`), bỏ qua bước hỏi, vào thẳng bước 3.
 
-本 skill 维护**两个**经验文件:
-- `references/lessons.md` —— 当前精简经验。**调用本 skill 时先读它**参考过往经验。
-- `references/lessons-archive.md` —— 原始全量档案 (归纳时归档, 只追加不删)。
+## Kho kinh nghiệm (cơ chế tiến hóa)
 
-步骤 8 往 lessons.md 追加新经验; 超阈值时自动归纳 (合并重复 + 提炼模式, 原始归档到 archive)。
+Skill này duy trì **hai** tệp kinh nghiệm:
+- `references/lessons.md` — kinh nghiệm rút gọn hiện tại. **Đọc khi bắt đầu** gọi skill này.
+- `references/lessons-archive.md` — lưu trữ đầy đủ (khi tổng hợp thì ghi thêm, không xóa).
 
-## 工作流
+Bước 8 ghi kinh nghiệm mới vào lessons.md; vượt ngưỡng thì tự tổng hợp (gộp trùng + rút mẫu, bản gốc lưu archive).
 
-### 1. 澄清意图
-问 2-3 个问题 (若参数已给出答案则跳过):
-- 这个 skill **做什么**? (一句话)
-- **谁在什么场景**下会触发它? (用户会说的关键词)
-- (可选) 它接收什么输入、产出什么?
+## Quy trình
 
-### 2. 选类型
-在 workflow / reference / tool / hybrid 中选一个。**现在加载 `references/templates.md`** 选对应骨架。
-判据: workflow=分步流程; reference=知识库查阅; tool=包装一个脚本/工具。
+### 1. Làm rõ ý định
+Hỏi 2–3 câu (nếu tham số đã trả lời thì bỏ qua):
+- Skill **làm gì**? (một câu)
+- **Ai, trong tình huống nào** sẽ kích hoạt? (từ khóa người dùng hay nói)
+- (Tuỳ chọn) Nhận đầu vào gì, xuất ra gì?
 
-### 3. 打磨 description (最重要的一步, 多花一轮)
-**现在加载 `references/description-guide.md`**。按公式写: **第三人称 + WHAT it does + WHEN to use it + 关键词前置** (中文)。
+Với skill hành chính, ưu tiên hỏi thêm: loại văn bản/quy trình (công văn, tờ trình, báo cáo, kế hoạch…), cấp cơ quan, mức độ chuẩn hoá (NĐ 30, mẫu nội bộ…).
 
-然后做**触发校验** (本 skill 区别于原生生成的核心价值):
-- 写 3 个 **should-trigger** 输入 (应当触发本 skill 的用户请求)
-- 写 3 个 **should-not-trigger** 输入 (相近但不应触发的请求)
-- 逐个推理: "给定此 description, agent 会不会触发?" 据此修正 description
+### 2. Chọn loại
+Chọn workflow / reference / tool / hybrid. **Tải `references/templates.md`** để chọn khung.
+Tiêu chí: workflow = quy trình từng bước; reference = tra cứu kiến thức; tool = bọc script/công cụ.
 
-### 4. 生成骨架
-在 `skills/<name>/` 下创建目录 + `SKILL.md` + 所需 `references/`。
-如对任何 frontmatter 字段或格式规则不确定, **加载 `references/skill-anatomy.md`**。
-用步骤 3 定稿的 description 填入 frontmatter。
+### 3. Mài description (bước quan trọng nhất)
+**Tải `references/description-guide.md`**. Viết theo công thức: **ngôi thứ ba + WHAT + WHEN + từ khóa đặt trước** (tiếng Việt).
 
-### 5. 填充初稿
-写 SKILL.md 正文 (中文) 和 references。遵守:
-- SKILL.md <500 行 (本 skill 类目标 <150 行)
-- references **只允许一层深度**: 不得让一个 reference 指示加载另一个 reference
-- 超过 100 行的 reference 顶部加目录 (TOC)
-- 路径一律用正斜杠 (含 Windows)
-- 在 SKILL.md 中注明每个 reference 的内容与加载时机
+Sau đó **kiểm tra kích hoạt** (giá trị cốt lõi của skillseed):
+- Viết 3 câu **should-trigger** (yêu cầu nên kích hoạt skill)
+- Viết 3 câu **should-not-trigger** (gần giống nhưng không nên kích hoạt)
+- Suy luận từng câu: "Với description này, agent có kích hoạt không?" → chỉnh description
 
-### 6. 自检 (语义 + 客观)
-**加载 `references/checklist.md`** 逐项核对语义项; 然后跑客观校验:
+### 4. Tạo khung
+Tạo thư mục `skills/<tên>/` + `SKILL.md` + `references/` cần thiết.
+Nếu không chắc frontmatter hoặc quy tắc định dạng, **tải `references/skill-anatomy.md`**.
+Điền description đã chốt vào frontmatter.
+
+### 5. Viết bản nháp
+Viết SKILL.md và references **bằng tiếng Việt**. Tuân thủ:
+- SKILL.md <500 dòng (skill meta mục tiêu <150 dòng)
+- references **chỉ một tầng**: không để reference này chỉ tải reference khác
+- reference >100 dòng: thêm mục lục (TOC) ở đầu
+- Đường dẫn dùng dấu `/` (kể cả Windows)
+- Trong SKILL.md ghi rõ nội dung và thời điểm tải từng reference
+
+Skill hành chính: ưu tiên mẫu văn bản, checklist thẩm định, quy tắc văn phong trong references; SKILL.md giữ quy trình gọn.
+
+### 6. Tự kiểm tra (ngữ nghĩa + khách quan)
+**Tải `references/checklist.md`** rà từng mục ngữ nghĩa; sau đó chạy validate:
 ```
-bash scripts/validate-skill.sh <name>
+bash scripts/validate-skill.sh <tên>
 ```
-机械项 (name 正则/长度、description 字符数、SKILL.md 行数、frontmatter、references 一层深度、>100 行 TOC、反斜杠、引用文件存在) 由脚本客观判定, 不靠估算。不合格的当场修, 直到脚本 PASS (exit 0)。
+Các mục cơ học (name, độ dài description, số dòng SKILL.md, frontmatter, một tầng references, TOC >100 dòng, dấu `/`, tệp tồn tại) do script quyết định. Sửa đến khi PASS (exit 0).
 
-### 7. (可选) 安装
-用安装脚本把 skill 部署到目标工具:
+### 7. (Tuỳ chọn) Cài đặt
 ```
-bash scripts/install-skill.sh <name> --tool <claude|codex|cursor> --project   # --project=项目级, --user=全局
+bash scripts/install-skill.sh <tên> --tool <claude|codex|cursor> --project   # --project=cấp dự án, --user=toàn cục
 ```
-**首次安装新 skill 到某工具需重启该工具才能被发现**; 之后对已存在 SKILL.md 的编辑会被实时检测。
+**Lần đầu cài skill mới vào công cụ cần khởi động lại**; sau đó sửa SKILL.md được phát hiện theo thời gian thực.
 
-### 8. 记录经验 + 自动归纳 (进化)
-创建完 skill 后, 反思本次过程。若学到**通用**经验 (非本次特例):
-1. **追加**一条到 `references/lessons.md` 末尾 (格式: `## <简短标题>` + 场景 + 经验 + 可选"建议改规范")
-2. **归纳** —— 当 lessons.md 超过 **20 条**时:
-   - 把 lessons.md 现有全部条目**追加**到 `references/lessons-archive.md` (保全原始)
-   - 归纳: 合并重复/相似条目, 提炼 2-3 条共通模式
-   - **重写** lessons.md: 头部说明 (不变) + 归纳后的精简条目 (≤10 条) + 顶部标注"最近归纳: N 条 → M 条"
+### 8. Ghi kinh nghiệm + tự tổng hợp
+Sau khi tạo xong skill, rút kinh nghiệm chung (không phải trường hợp một lần):
+1. **Thêm** một mục vào cuối `references/lessons.md` (định dạng: `## <tiêu đề ngắn>` + tình huống + kinh nghiệm + tuỳ chọn "đề xuất sửa quy chuẩn")
+2. **Tổng hợp** — khi lessons.md vượt **20 mục**:
+   - **Ghi thêm** toàn bộ mục hiện tại vào `references/lessons-archive.md`
+   - Gộp mục trùng/tương tự, rút 2–3 mẫu chung
+   - **Viết lại** lessons.md: phần đầu (giữ nguyên) + mục rút gọn (≤10) + ghi "Tổng hợp gần nhất: N mục → M mục"
 
-护栏:
-- archive 只追加不删; lessons.md 仅在归纳时整体重写
-- 经验要具体可操作; 与已有条目重复则不追加
-- **不改其他 reference** (checklist / templates / etc 不动); 建议改规范只记"建议", 不自动执行
+Rào chắn:
+- archive chỉ thêm, không xóa; lessons.md chỉ viết lại khi tổng hợp
+- Kinh nghiệm phải cụ thể, có thể làm được; trùng mục cũ thì không thêm
+- **Không sửa reference khác** (checklist / templates / …); đề xuất sửa quy chuẩn chỉ ghi "đề xuất", không tự thực hiện
 
-## References 索引
+## Chỉ mục References
 
-按需加载, 不要一开始就全读:
+Tải theo nhu cầu, không đọc hết ngay từ đầu:
 
-| 文件 | 内容 | 何时加载 |
-|------|------|----------|
-| `references/lessons.md` | 经验库 (当前精简版, 越用越丰富) | 调用开头读; 步骤 8 追加/归纳 |
-| `references/lessons-archive.md` | 经验原始全量档案 (归纳时归档) | 步骤 8 归纳时写 (不常读) |
-| `references/templates.md` | 3 种 skill 骨架 (workflow / reference / tool) | 步骤 2 |
-| `references/description-guide.md` | 触发描述写作指南 + 好坏示例 | 步骤 3 |
-| `references/skill-anatomy.md` | 完整格式规范: frontmatter 字段、name 规则、discovery (多工具路径)、progressive disclosure | 步骤 4-5 按需 (字段/规则不确定时) |
-| `references/checklist.md` | 发布前自检清单 (语义项) | 步骤 6 |
+| Tệp | Nội dung | Khi nào tải |
+|-----|----------|-------------|
+| `references/lessons.md` | Kho kinh nghiệm (rút gọn, càng dùng càng phong phú) | Đầu mỗi lần gọi; bước 8 ghi/tổng hợp |
+| `references/lessons-archive.md` | Lưu trữ đầy đủ (khi tổng hợp) | Bước 8 ghi (hiếm khi đọc) |
+| `references/templates.md` | 4 khung skill (workflow / reference / tool / hành chính) | Bước 2 |
+| `references/description-guide.md` | Hướng dẫn viết description + ví dụ tốt/xấu | Bước 3 |
+| `references/skill-anatomy.md` | Quy chuẩn đầy đủ: frontmatter, name, discovery, tiết lộ dần | Bước 4–5 khi cần |
+| `references/checklist.md` | Checklist trước khi phát hành (mục ngữ nghĩa) | Bước 6 |
 
-## 重要约束
-- description 用**中文**, 第三人称; 正文用**中文**
-- references **不得互相指示加载** (一层深度)
-- 路径用**正斜杠**
-- SKILL.md **<500 行**
-- 生成的 skill 遵循开放标准, 跨工具通用 (Claude Code / Codex / Cursor)
-- 经验库 (`lessons.md` 当前版 + `lessons-archive.md` 原始档案) 是运行时状态, 重装保留 (见 install-skill.sh), 不随 canonical 源覆盖
-- 步骤 6 机械项必须 `validate-skill.sh` PASS, 不靠估算
+## Ràng buộc quan trọng
 
-## 与官方 skill-creator 插件的关系
-本 skill (`skillseed`) 负责**脚手架 + 自检 + 跨工具安装**; 官方插件 (`/plugin install skill-creator@claude-plugins-official`) 负责 Claude Code 内的 **eval/iterate**。两者不同名, 可同时安装、互不覆盖。建议在此脚手架后, 用官方插件做评估迭代。
+- description và nội dung dùng **tiếng Việt**, ngôi thứ ba
+- references **không chỉ nhau tải lần lượt** (một tầng)
+- Đường dẫn dùng **dấu /**
+- SKILL.md **<500 dòng**
+- Skill sinh ra theo chuẩn mở, dùng được đa công cụ (Claude Code / Codex / Cursor)
+- Kho kinh nghiệm là trạng thái runtime, cài lại vẫn giữ (install-skill.sh), không ghi đè từ canonical
+- Bước 6: mục cơ học phải `validate-skill.sh` PASS
 
-> 注: `context: fork` 有意不设 —— 需在主对话中与用户迭代, 不能 fork 到子代理。
+## Quan hệ với plugin skill-creator chính thức
+
+Skill này (`skillseed`) lo **khởi tạo + tự kiểm tra + cài đa công cụ**; plugin chính thức (`/plugin install skill-creator@claude-plugins-official`) lo **eval/lặp** trong Claude Code. Có thể cài song song. Nên dùng plugin chính thức để đánh giá sau khi scaffold xong.
+
+> Lưu ý: cố ý không đặt `context: fork` — cần lặp với người dùng trong hội thoại chính, không fork sang sub-agent.

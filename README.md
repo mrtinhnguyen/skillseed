@@ -216,7 +216,8 @@ SkillSeed 生成的 skill 跨工具通用; 官方插件专注 Claude Code 内的
 - SkillSeed 是一个**精心设计的起点 / 模板**, 不是成熟产品 —— 目前只在 Claude Code 上实测过 (processing-pdfs)。Codex / Cursor 的安装路径基于公开文档, 未逐一实测。
 - 自动归纳依赖 Claude 的语义理解 —— 合并/提炼质量取决于调用上下文; 归纳后建议人工扫一眼 archive 确认没丢重要经验。
 
-## 语言策略
-- frontmatter `description`: **中文**。
-- 正文 / references: **中文**。
-- description-guide 中保留部分英文真实 skill 示例供结构参考。
+## Chiến lược ngôn ngữ (SkillSeed Việt hóa)
+- frontmatter `description`: **tiếng Việt**.
+- Thân bài / references: **tiếng Việt**.
+- **Ưu tiên:** skill phục vụ cơ quan nhà nước (tham mưu, công văn, kế hoạch, báo cáo).
+- description-guide giữ ví dụ cấu trúc; ví dụ nội dung theo bối cảnh hành chính Việt Nam.

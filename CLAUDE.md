@@ -1,20 +1,21 @@
 # SkillSeed
 
-这是一个 **Agent Skills 仓库**: 基于 Agent Skills 开放标准, 生成的 skill 兼容 Claude Code、Codex、Cursor 等工具。
+Đây là **kho Agent Skills**: theo chuẩn mở Agent Skills; skill sinh ra tương thích Claude Code, Codex, Cursor và công cụ tương tự.
 
-## 关键约定
-- 所有 skill 的 canonical 源在 `skills/<name>/` 下编写与版本管理。
-- 用 `/skillseed` 创建新 skill (它会生成到 `skills/<name>/`, 并做合规自检)。
-- 用 `scripts/install-skill.sh <name> --tool <claude|codex|cursor> --project|--user` 把 skill 安装到对应工具的可发现路径。
+## Quy ước chính
+- Nguồn canonical của mọi skill nằm trong `skills/<tên>/` để phát triển và quản lý phiên bản.
+- Dùng `/skillseed` để tạo skill mới (sinh vào `skills/<tên>/` và tự kiểm tra).
+- Dùng `scripts/install-skill.sh <tên> --tool <claude|codex|cursor> --project|--user` để cài skill vào đường dẫn mà công cụ quét được.
 
-## 开发 skillseed 自身
-- 源在 `skills/skillseed/`。
-- 改完后必须重装才生效: `bash scripts/install-skill.sh skillseed --tool claude --project`。
-- 首次安装需重启对应工具; 之后重装实时生效 (纯复制, 无符号链接)。
-- 经验库 `lessons.md` 是运行时状态, 重装自动保留 (install-skill.sh); 不进 canonical 源。
+## Phát triển skillseed
+- Nguồn tại `skills/skillseed/`.
+- Sau khi sửa phải cài lại mới có hiệu lực: `bash scripts/install-skill.sh skillseed --tool claude --project`.
+- Lần đầu cài cần khởi động lại công cụ; cài lại sau đó có hiệu lực ngay (copy thuần, không symlink).
+- Kho kinh nghiệm `lessons.md` là trạng thái runtime, cài lại vẫn giữ (install-skill.sh); không nằm trong canonical.
 
-## 语言策略
-- frontmatter `description` 用中文; 正文用中文。
-- references 只允许一层深度 (不互相指示加载); 路径一律正斜杠; SKILL.md <500 行。
+## Chiến lược ngôn ngữ
+- frontmatter `description` dùng **tiếng Việt**; thân bài và references dùng **tiếng Việt**.
+- **Định hướng ưu tiên:** skill phục vụ cơ quan nhà nước (tham mưu, công văn, kế hoạch, báo cáo…).
+- references chỉ một tầng (không chỉ nhau tải); đường dẫn dùng dấu `/`; SKILL.md <500 dòng.
 
-详见 README.md。
+Xem thêm README.md.
